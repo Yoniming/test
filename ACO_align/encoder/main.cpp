@@ -1,8 +1,8 @@
 /**
-*	ÊäÈë£ºfast.fpÎÄ¼ş
-*	Êä³ö£ºÑ¹ËõºóµÄout.stream
-*	²½Öè£º¢ÙÌáÈ¡fast.fpÖĞµÄµÚËÄĞĞÖÊÁ¿·ÖÊı·ÅÈë¾ØÕómatrix£»
-¢Ú¶Ômatrix½øĞĞÑ¹ËõµÃµ½out.streamÎÄ¼ş£»
+*	è¾“å…¥ï¼šfast.fpæ–‡ä»¶
+*	è¾“å‡ºï¼šå‹ç¼©åçš„out.stream
+*	æ­¥éª¤ï¼šâ‘ æå–fast.fpä¸­çš„ç¬¬å››è¡Œè´¨é‡åˆ†æ•°æ”¾å…¥çŸ©é˜µmatrixï¼›
+â‘¡å¯¹matrixè¿›è¡Œå‹ç¼©å¾—åˆ°out.streamæ–‡ä»¶ï¼›
 **/
 
 #include<iostream>
@@ -17,7 +17,7 @@
 
 using namespace std;
 
-//¶¯Ì¬´´½¨¶şÎ¬Êı×é
+//åŠ¨æ€åˆ›å»ºäºŒç»´æ•°ç»„
 char **array_char(int m, int n)
 {
 	char **arr = new char *[m];
@@ -36,10 +36,10 @@ void freearay(int m, char **arr)
 int main(int argc, char* argv[])
 {
 	int T = atoi(argv[2]);
-	//===============================Í¨¹ı²âÊÔµÃµ½NUM_SYMBOL=======//
+	//===============================é€šè¿‡æµ‹è¯•å¾—åˆ°NUM_SYMBOL=======//
 	//===============================1.1 Parameter definition & Initialization=======//
-	//                D:\\»ùÒòÊı¾İ\\fastqÎÄ¼ş\\SRR065390_1.fastq
-    //                F:\\»ùÒòÊı¾İ\\ERR174310_1.fastq
+	//                D:\\åŸºå› æ•°æ®\\fastqæ–‡ä»¶\\SRR065390_1.fastq
+    //                F:\\åŸºå› æ•°æ®\\ERR174310_1.fastq
 	string file_str = argv[1];
 	const string file_path = "./"+file_str;
 	FILE * test_fp;
@@ -108,7 +108,7 @@ int main(int argc, char* argv[])
 	delete[] test_char;
 	//===============================1.1 Parameter definition & Initialization=======//
 	//#define NUM_SYMBOL num_symbol	
-	//#define LINE_MAXSIZE line_maxsize      //Ã¿ĞĞ×î´ó³¤¶È
+	//#define LINE_MAXSIZE line_maxsize      //æ¯è¡Œæœ€å¤§é•¿åº¦
 	int total_len = 3000000;
 	//#define TOTAL_LEN total_len
 	
@@ -133,13 +133,13 @@ int main(int argc, char* argv[])
 	ac_model * mean_model = new ac_model[num_symbol];
 	ac_model * acm_ny = new ac_model[model_num];
 
-	int * count_char = new int[total_len];	// ¶¯Ì¬·ÖÅä¿Õ¼ä Í³¼ÆÃ¿ĞĞÊµ¼Ê×Ö·û¸öÊı
+	int * count_char = new int[total_len];	// åŠ¨æ€åˆ†é…ç©ºé—´ ç»Ÿè®¡æ¯è¡Œå®é™…å­—ç¬¦ä¸ªæ•°
 	char * input_buf = new char[line_maxsize + 2];
 	char *input_actg = new char[line_maxsize + 2];
-	int *dy_mean = new int[total_len];         //´æ·ÅÃ¿ĞĞµÄ¶¯Ì¬¾ùÖµ
-	char *num_input_hist = new char[total_len];//´æ·ÅÃ¿ĞĞµÄ¾ùÖµ
-	int *error_rows = new int[total_len];    //´æ·ÅÃ¿ĞĞµÄÎó²î
-	int *dy_error = new int[total_len];        //´æ·ÅÃ¿ĞĞµÄ¶¯Ì¬¾ùÖµ
+	int *dy_mean = new int[total_len];         //å­˜æ”¾æ¯è¡Œçš„åŠ¨æ€å‡å€¼
+	char *num_input_hist = new char[total_len];//å­˜æ”¾æ¯è¡Œçš„å‡å€¼
+	int *error_rows = new int[total_len];    //å­˜æ”¾æ¯è¡Œçš„è¯¯å·®
+	int *dy_error = new int[total_len];        //å­˜æ”¾æ¯è¡Œçš„åŠ¨æ€å‡å€¼
 
 
 	input_hist = array_char(total_len, line_maxsize);
@@ -176,7 +176,7 @@ int main(int argc, char* argv[])
 	
 	stringstream ss;
 	ss<<T;
-	const string file_out = "/media/lioneh/NYTOSHIBA/CODE/"+ file_str + ss.str() + ".stream";
+	const string file_out = "./"+ file_str + ss.str() + ".stream";
 	ac_encoder_init(&ace_ny, file_out.c_str());
 	fwrite(&line_maxsize, sizeof(int), 1, ace_ny.fp);
 	fwrite(&max_1, sizeof(int), 1, ace_ny.fp);
@@ -244,7 +244,7 @@ int main(int argc, char* argv[])
 		
 		//===============================2.3  Process=======================//
 		// step1: counting mean
-		//=====================¼ÆËã¾ùÖµ=======================
+		//=====================è®¡ç®—å‡å€¼=======================
 //		int pre = 0;
 //		for (int i = 0; i < rows; i++)
 //		{
@@ -256,7 +256,7 @@ int main(int argc, char* argv[])
 //			float tmp = (sum) / count_char[i];
 //			num_input_hist[i] = tmp;
 ///*			if (num_input_hist[i] < (num_symbol - 15))
-//				num_input_hist[i] = (num_symbol - 15); */   //ÓÃÓÚread
+//				num_input_hist[i] = (num_symbol - 15); */   //ç”¨äºread
 //			if (num_input_hist[i] < (num_symbol - 13))
 //				num_input_hist[i] = (num_symbol - 13);
 //			else if (num_input_hist[i] < (num_symbol - 11))
@@ -267,7 +267,7 @@ int main(int argc, char* argv[])
 //				num_input_hist[i] = (num_symbol - 7);
 //
 //			else if (num_input_hist[i] < (num_symbol - 5))
-//				num_input_hist[i] = (num_symbol-5);    //ÓÃÓÚERR1638068_1
+//				num_input_hist[i] = (num_symbol-5);    //ç”¨äºERR1638068_1
 //
 //
 //			//if (num_input_hist[i] < 22)
@@ -294,7 +294,7 @@ int main(int argc, char* argv[])
 		//	fclose(fp);
 		//}
 		//step2: coding loop
-//===========================================¶ÔERR1638068_1µÄÁ¿»¯========================================//
+//===========================================å¯¹ERR1638068_1çš„é‡åŒ–========================================//
 		if (T == 0)
 		{
 			int pre = 0;
@@ -457,7 +457,7 @@ int main(int argc, char* argv[])
 
 
 
-//=====================================²âÊÔread¡ª2ËùÓÃµÄcontextÁ¿»¯====================================
+//=====================================æµ‹è¯•readâ€”2æ‰€ç”¨çš„contexté‡åŒ–====================================
 		if (T == 1)
 		{
 
@@ -624,7 +624,7 @@ int main(int argc, char* argv[])
 		}
 
 
-//=====================================²âIlluminaËùÓÃµÄcontextÁ¿»¯====================================
+//=====================================æµ‹Illuminaæ‰€ç”¨çš„contexté‡åŒ–====================================
 		if (T == 2)
 		{
 			int i = 0;
@@ -712,7 +712,7 @@ int main(int argc, char* argv[])
 				}
 			}
 		}
-//===========================================²âSRR870667_1ËùÓÃµÄcontextÁ¿»¯========================================//
+//===========================================æµ‹SRR870667_1æ‰€ç”¨çš„contexté‡åŒ–========================================//
 		if (T == 3)
 		{
 			int pre = 0;
